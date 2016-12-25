@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;../src/main/java&quot;,&quot;THEME&quot;:&quot;kurstheme&quot;}">
+  <meta charset="UTF-8" name="vaadin-version" content="7.7.0">
+ </head> 
+ <body> 
+  <vaadin-vertical-layout size-full> 
+   <vaadin-form-layout size-full margin> 
+    <vaadin-label size-auto plain-text _id="mainTitle">
+      Create new order:
+    </vaadin-label> 
+    <vaadin-text-field caption="Name:" width="60%" _id="title"></vaadin-text-field>
+    <vaadin-text-area caption="Description:" width="60%" _id="info"></vaadin-text-area>
+    <vaadin-text-field caption="Price:" _id="price"></vaadin-text-field>
+    <vaadin-horizontal-layout spacing> 
+     <vaadin-button plain-text _id="create">
+       Create
+     </vaadin-button> 
+     <vaadin-button plain-text _id="cancel">
+       Cancel
+     </vaadin-button> 
+    </vaadin-horizontal-layout> 
+   </vaadin-form-layout> 
+  </vaadin-vertical-layout>  
+ </body>
+</html>

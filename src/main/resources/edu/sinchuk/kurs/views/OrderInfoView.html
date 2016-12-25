@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;../src/main/java&quot;,&quot;THEME&quot;:&quot;kurstheme&quot;}">
+  <meta charset="UTF-8" name="vaadin-version" content="7.7.0">
+ </head> 
+ <body> 
+  <vaadin-form-layout size-full margin> 
+   <vaadin-label size-auto plain-text _id="title">
+     Name of order
+   </vaadin-label> 
+   <vaadin-text-area caption="Описание заказа" width="85%" _id="description">
+     Order description
+   </vaadin-text-area> 
+   <vaadin-text-field caption="Цена" value="0 грн." _id="price"></vaadin-text-field> 
+   <vaadin-horizontal-layout spacing> 
+    <vaadin-button plain-text _id="setOrder">
+     Accept an order
+    </vaadin-button> 
+    <vaadin-button plain-text _id="write">
+     Send a message to the customer
+    </vaadin-button> 
+    <vaadin-button plain-text _id="back">
+     Return to the previous page
+    </vaadin-button> 
+   </vaadin-horizontal-layout> 
+  </vaadin-form-layout>  
+ </body>
+</html>

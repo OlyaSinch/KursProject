@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;../src/main/java&quot;,&quot;THEME&quot;:&quot;kurstheme&quot;}">
+  <meta name="vaadin-version" content="7.7.0">
+ </head> 
+ <body> 
+  <vaadin-vertical-layout spacing size-full> 
+   <vaadin-form-layout size-full margin> 
+    <vaadin-label size-auto plain-text _id="title">
+      Registration of new user: 
+    </vaadin-label> 
+    <vaadin-text-field caption="Login:" _id="login"></vaadin-text-field> 
+    <vaadin-password-field caption="Password:" _id="pass"></vaadin-password-field> 
+    <vaadin-password-field caption="Password Confirmation:" _id="passVerf"></vaadin-password-field> 
+    <vaadin-text-field caption="Name:" _id="name"></vaadin-text-field> 
+    <vaadin-text-field caption="Lastname:" _id="lastName"></vaadin-text-field> 
+    <vaadin-option-group _id="userType"> 
+     <option>Customer</option> 
+     <option>Programmer</option> 
+    </vaadin-option-group> 
+    <vaadin-horizontal-layout spacing> 
+     <vaadin-button plain-text _id="register">
+       Registration 
+     </vaadin-button> 
+     <vaadin-button plain-text _id="cancel">
+       Cancel 
+     </vaadin-button> 
+    </vaadin-horizontal-layout> 
+   </vaadin-form-layout> 
+  </vaadin-vertical-layout>  
+ </body>
+</html>

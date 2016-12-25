@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;../src/main/java&quot;,&quot;THEME&quot;:&quot;kurstheme&quot;}">
+  <meta charset="UTF-8" name="vaadin-version" content="7.7.0">
+ </head> 
+ <body> 
+  <vaadin-vertical-layout spacing margin> 
+   <vaadin-horizontal-layout width-full height="20%" :right> 
+    <vaadin-label size-auto plain-text>
+      Welcome:
+    </vaadin-label> 
+    <vaadin-label size-auto plain-text _id="login"></vaadin-label> 
+    <vaadin-button plain-text _id="exit" :right>
+      Exit
+    </vaadin-button> 
+   </vaadin-horizontal-layout> 
+   <vaadin-form-layout size-auto> 
+    <vaadin-button width="215px" plain-text _id="createOrder">
+      Create an order
+    </vaadin-button> 
+    <vaadin-button width="215px" plain-text _id="allOrders">
+      Order Page
+    </vaadin-button> 
+    <vaadin-button plain-text _id="editProfile">
+      Edit profile
+    </vaadin-button> 
+   </vaadin-form-layout> 
+  </vaadin-vertical-layout>  
+ </body>
+</html>

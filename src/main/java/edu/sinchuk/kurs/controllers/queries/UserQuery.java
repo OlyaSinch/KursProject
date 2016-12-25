@@ -20,7 +20,7 @@ public class UserQuery {
         statement = conn.createStatement();
         String insertUserSQL = "INSERT INTO user_table"
                 + "(user_id, user_login, user_password, user_name, user_lastname, fk_group_id) " + "VALUES"
-                + "('user_sequence.NEXTVAL','" + login + "','" + password + "','" + name + "','" + lastName + "',"
+                + "(user_sequence.NEXTVAL,'" + login + "','" + password + "','" + name + "','" + lastName + "',"
                 + fkGroupId + ")";
         statement.executeUpdate(insertUserSQL);
         conn.close();

@@ -54,13 +54,13 @@ public class RegisterView extends VerticalLayout implements View {
         login.addValidator(new RegexpValidator("^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$","Login type error..."));
         pass.addValidator(new StringLengthValidator("Pass type error...",8,20,false));
         passVerf.addValidator(new StringLengthValidator("Pass type error...",8,20,false));
-        name.addValidator(new StringLengthValidator("Pass type error...",3,20,false));
-        lastName.addValidator(new StringLengthValidator("Pass type error...", 3,20,false));
+        name.addValidator(new StringLengthValidator("Name type error...",3,20,false));
+        lastName.addValidator(new StringLengthValidator("Lastname type error...", 3,20,false));
 
         register.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                if (!pass.getValue().isEmpty() && !passVerf.getValue().isEmpty()) {
+                if (pass.getValue() == passVerf.getValue()) {
                     DataBaseConnection connection = new DataBaseConnection();
                     try {
                         UserQuery userQuery = new UserQuery(connection.connect());
@@ -73,7 +73,7 @@ public class RegisterView extends VerticalLayout implements View {
                     } catch (ClassNotFoundException e) {
                         addComponent(new Label("Ошибка создания пользователя!!!"));
                     } catch (SQLException e) {
-                        e.printStackTrace();
+                        addComponent(new Label("Ошибка создания пользователя!!!"));
                     }
                 } else {
                     addComponent(new Label("Пароли не одинаковы!!!"));

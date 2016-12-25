@@ -46,17 +46,17 @@ public class UserQuery {
         }
     }
 
-    public void updateUser(int id, String login, String password, String name, String lastName, String fkGroupId) throws SQLException {
+    public void updateUser(int id, String login, String password, String name, String lastName, int fkGroupId) throws SQLException {
         statement = conn.createStatement();
-        String updateUserSQL = "UPDATE user_table SET user_login = '" + login + "' WHERE user_id = '" + id + "'";
+        String updateUserSQL = "UPDATE user_table SET user_login = '" + login + "' WHERE user_id = " + id + "";
         statement.execute(updateUserSQL);
-        updateUserSQL = "UPDATE user_table SET user_password = '" + password + "' WHERE user_id = '" + id + "'";
+        updateUserSQL = "UPDATE user_table SET user_password = '" + password + "' WHERE user_id = " + id + "";
         statement.execute(updateUserSQL);
-        updateUserSQL = "UPDATE user_table SET user_name = '" + name + "' WHERE user_id = '" + id + "'";
+        updateUserSQL = "UPDATE user_table SET user_name = '" + name + "' WHERE user_id = " + id + "";
         statement.execute(updateUserSQL);
-        updateUserSQL = "UPDATE user_table SET user_lastname = '" + lastName + "' WHERE user_id = '" + id + "'";
+        updateUserSQL = "UPDATE user_table SET user_lastname = '" + lastName + "' WHERE user_id = " + id + "";
         statement.execute(updateUserSQL);
-        updateUserSQL = "UPDATE user_table SET fk_group_id = '" + fkGroupId + "' WHERE user_id = '" + id + "'";
+        updateUserSQL = "UPDATE user_table SET fk_group_id = " + fkGroupId + " WHERE user_id = " + id + "";
         statement.execute(updateUserSQL);
     }
 }

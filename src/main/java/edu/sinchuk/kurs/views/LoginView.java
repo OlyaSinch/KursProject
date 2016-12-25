@@ -7,8 +7,11 @@ import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.*;
 import com.vaadin.ui.declarative.Design;
+import edu.sinchuk.kurs.controllers.queries.UserQuery;
+import edu.sinchuk.kurs.models.entities.UserEntity;
 import edu.sinchuk.kurs.models.services.DataBaseConnection;
 
 import java.sql.SQLException;
@@ -56,12 +59,26 @@ public class LoginView extends VerticalLayout implements View {
         signIn.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                if ((login.getValue().equals("user")) && (pass.getValue().equals("qwerty123"))) {
-                    UI.getCurrent().getNavigator().addView(UserPanelView.NAME,new UserPanelView());
-                    UI.getCurrent().getNavigator().navigateTo(UserPanelView.NAME);
-                } else if ((login.getValue().equals("developer")) && (pass.getValue().equals("developer"))) {
-                    UI.getCurrent().getNavigator().addView(DeveloperPanelView.NAME,new DeveloperPanelView());
-                    UI.getCurrent().getNavigator().navigateTo(DeveloperPanelView.NAME);
+                DataBaseConnection connection = new DataBaseConnection();
+                try {
+                    UserQuery userQuery = new UserQuery(connection.connect());
+                    UserEntity userEntity = userQuery.selectUser(login.getValue(),pass.getValue());
+                    if (userEntity != null) {
+                        VaadinSession.getCurrent().setAttribute("user",userEntity);
+                        if (userEntity.getFkGroupId() == 1) {
+                            UI.getCurrent().getNavigator().addView(UserPanelView.NAME,new UserPanelView());
+                            UI.getCurrent().getNavigator().navigateTo(UserPanelView.NAME);
+                        } else if (userEntity.getFkGroupId() == 2) {
+                            UI.getCurrent().getNavigator().addView(DeveloperPanelView.NAME,new DeveloperPanelView());
+                            UI.getCurrent().getNavigator().navigateTo(DeveloperPanelView.NAME);
+                        }
+                    } else {
+                        addComponent(new Label("Пользователь не найден в системе!!!"));
+                    }
+                } catch (ClassNotFoundException e) {
+                    addComponent(new Label("Ошибка входа!!!"));
+                } catch (SQLException e) {
+                    addComponent(new Label("Ошибка входа!!!"));
                 }
             }
         });

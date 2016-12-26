@@ -7,6 +7,7 @@ import com.vaadin.ui.declarative.Design;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Label;
+import edu.sinchuk.kurs.models.entities.OrderEntity;
 import edu.sinchuk.kurs.views.OrderInfoView;
 
 /**
@@ -29,21 +30,21 @@ public class OrderComponent extends HorizontalLayout {
     private String orderDescription;
     private Integer orderPrice;
 
-    public OrderComponent(String title, String description, Integer price) {
+    public OrderComponent(OrderEntity orderEntity) {
         Design.read(this);
 
-        this.orderTitle = title;
-        this.orderDescription = description;
-        this.orderPrice = price;
+        this.orderTitle = orderEntity.getOrderTitle();
+        this.orderDescription = orderEntity.getOrderTitle();
+        this.orderPrice = orderEntity.getOrderPrice();
 
-        this.title.setValue("Название: " + title);
-        this.price.setValue("Цена: " + String.valueOf(price));
+        this.title.setValue("Название: " + orderEntity.getOrderTitle());
+        this.price.setValue("Цена: " + String.valueOf(orderEntity.getOrderPrice()));
 
         info.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
                 UI.getCurrent().getNavigator().addView(OrderInfoView.NAME,
-                        new OrderInfoView(orderTitle,orderDescription,orderPrice));
+                        new OrderInfoView(orderEntity));
                 UI.getCurrent().getNavigator().navigateTo(OrderInfoView.NAME);
             }
         });

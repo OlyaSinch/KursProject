@@ -19,6 +19,7 @@ import edu.sinchuk.kurs.controllers.queries.UserQuery;
 import edu.sinchuk.kurs.models.services.DataBaseConnection;
 
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -60,12 +61,16 @@ public class RegisterView extends VerticalLayout implements View {
         register.addClickListener(new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                if (pass.getValue() == passVerf.getValue()) {
+                if (Objects.equals(pass.getValue(),passVerf.getValue())) {
                     DataBaseConnection connection = new DataBaseConnection();
                     try {
                         UserQuery userQuery = new UserQuery(connection.connect());
                         int groupId = 1;
-                        if (userType.isItemEnabled("Developer")) groupId = 2;
+                        if (userType.isSelected("Programmer")) {
+                            groupId = 2;
+                        } else if (userType.isSelected("Customer")) {
+                            groupId = 1;
+                        }
                         userQuery.insertUser(login.getValue(), pass.getValue(), name.getValue(), lastName.getValue(), groupId);
                         UI.getCurrent().getNavigator().addView(LoginView.NAME, new LoginView());
                         UI.getCurrent().getNavigator().navigateTo(LoginView.NAME);

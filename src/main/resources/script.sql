@@ -33,9 +33,9 @@ create table order_table (
 
 create table user_order_relation_table (
  uor_id int not null,
- fk_creator_id int null,
+ fk_creator_id int not null,
  fk_developer_id int null,
- fk_order_id int null,
+ fk_order_id int not null,
  primary key (uor_id),
  foreign key (fk_creator_id) references user_table (user_id),
  foreign key (fk_developer_id) references user_table (user_id),

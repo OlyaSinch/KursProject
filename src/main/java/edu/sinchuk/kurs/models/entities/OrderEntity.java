@@ -10,15 +10,19 @@ public class OrderEntity {
     private String orderTask;
     private int orderPrice;
     private int fkStatusId;
+    private int fkCreatorId;
+    private int fkDeveloperId;
 
     public OrderEntity() {}
 
-    public OrderEntity(int orderId, String orderTitle, String orderTask, int orderPrice, int fkStatusId) {
+    public OrderEntity(int orderId, String orderTitle, String orderTask, int orderPrice, int fkStatusId, int fkCreatorId, int fkDeveloperId) {
         this.orderId = orderId;
         this.orderTitle = orderTitle;
         this.orderTask = orderTask;
         this.orderPrice = orderPrice;
         this.fkStatusId = fkStatusId;
+        this.fkCreatorId = fkCreatorId;
+        this.fkDeveloperId = fkDeveloperId;
     }
 
     public int getOrderId() {
@@ -61,6 +65,22 @@ public class OrderEntity {
         this.fkStatusId = fkStatusId;
     }
 
+    public int getFkCreatorId() {
+        return fkCreatorId;
+    }
+
+    public void setFkCreatorId(int fkCreatorId) {
+        this.fkCreatorId = fkCreatorId;
+    }
+
+    public int getFkDeveloperId() {
+        return fkDeveloperId;
+    }
+
+    public void setFkDeveloperId(int fkDeveloperId) {
+        this.fkDeveloperId = fkDeveloperId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,6 +91,8 @@ public class OrderEntity {
         if (orderId != that.orderId) return false;
         if (orderPrice != that.orderPrice) return false;
         if (fkStatusId != that.fkStatusId) return false;
+        if (fkCreatorId != that.fkCreatorId) return false;
+        if (fkDeveloperId != that.fkDeveloperId) return false;
         if (!orderTitle.equals(that.orderTitle)) return false;
         return orderTask.equals(that.orderTask);
     }
@@ -82,6 +104,8 @@ public class OrderEntity {
         result = 31 * result + orderTask.hashCode();
         result = 31 * result + orderPrice;
         result = 31 * result + fkStatusId;
+        result = 31 * result + fkCreatorId;
+        result = 31 * result + fkDeveloperId;
         return result;
     }
 }

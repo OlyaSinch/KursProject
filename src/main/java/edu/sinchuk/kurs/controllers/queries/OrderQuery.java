@@ -51,7 +51,53 @@ public class OrderQuery {
         return orders;
     }
 
-    public OrderEntity selectOrder(int orderId) throws SQLException {
+    public List<OrderEntity> selectByCreator(int fkCreatorId) throws SQLException {
+        List<OrderEntity> orders = new ArrayList<>();
+        String selectOrderSQL = "SELECT * "
+                + "FROM order_table WHERE fk_creator_id = " + fkCreatorId;
+        PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
+        ResultSet rs = prst.executeQuery();
+
+        OrderEntity order;
+        while (rs.next()) {
+            order = new OrderEntity();
+            order.setOrderId(rs.getInt(1));
+            order.setOrderTitle(rs.getString(2));
+            order.setOrderTask(rs.getString(3));
+            order.setOrderPrice(rs.getInt(4));
+            order.setFkStatusId(rs.getInt(5));
+            order.setFkCreatorId(rs.getInt(6));
+            order.setFkDeveloperId(rs.getInt(7));
+            orders.add(order);
+        }
+
+        return orders;
+    }
+
+    public List<OrderEntity> selectByDeveloper(int fkDeveloperId) throws SQLException {
+        List<OrderEntity> orders = new ArrayList<>();
+        String selectOrderSQL = "SELECT * "
+                + "FROM order_table WHERE fk_developer_id = " + fkDeveloperId;
+        PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
+        ResultSet rs = prst.executeQuery();
+
+        OrderEntity order;
+        while (rs.next()) {
+            order = new OrderEntity();
+            order.setOrderId(rs.getInt(1));
+            order.setOrderTitle(rs.getString(2));
+            order.setOrderTask(rs.getString(3));
+            order.setOrderPrice(rs.getInt(4));
+            order.setFkStatusId(rs.getInt(5));
+            order.setFkCreatorId(rs.getInt(6));
+            order.setFkDeveloperId(rs.getInt(7));
+            orders.add(order);
+        }
+
+        return orders;
+    }
+
+    public OrderEntity select(int orderId) throws SQLException {
         OrderEntity order = new OrderEntity();
         String selectOrderSQL = "SELECT order_id, order_title, order_task, order_price, fk_status_id, fk_creator_id, fk_developer_id "
                 + "FROM order_table WHERE order_id = " + orderId;

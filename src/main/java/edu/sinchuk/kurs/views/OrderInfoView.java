@@ -37,6 +37,7 @@ public class OrderInfoView extends FormLayout implements View {
     protected TextField price;
     protected Button setOrder;
     protected Button delete;
+    protected Button finished;
     protected Button back;
 
     public OrderInfoView(OrderEntity orderEntity) {
@@ -49,6 +50,10 @@ public class OrderInfoView extends FormLayout implements View {
         }
         if (this.orderEntity.getFkCreatorId() == this.userEntity.getUserId()) {
             delete.setEnabled(true);
+        }
+        if ((this.orderEntity.getFkDeveloperId() == this.userEntity.getUserId()) &&
+                (this.orderEntity.getFkStatusId() == 2)) {
+            finished.setEnabled(true);
         }
 
         this.title.setValue(orderEntity.getOrderTitle());
@@ -68,6 +73,40 @@ public class OrderInfoView extends FormLayout implements View {
                     addComponent(new Label("Ошибка принятия заказа!!!"));
                 } catch (SQLException e) {
                     addComponent(new Label("Ошибка принятия заказа!!!"));
+                }
+            }
+        });
+
+        finished.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                DataBaseConnection connection = new DataBaseConnection();
+                try {
+                    OrderQuery orderQuery = new OrderQuery(connection.connect());
+                    orderQuery.updateStatusToFinished(orderEntity.getOrderId());
+                    addComponent(new Label("Заказ завершен!!!"));
+                    finished.setEnabled(false);
+                } catch (ClassNotFoundException e) {
+                    addComponent(new Label("Ошибка завершения заказа!!!"));
+                } catch (SQLException e) {
+                    addComponent(new Label("Ошибка завершения заказа!!!"));
+                }
+            }
+        });
+
+        delete.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                DataBaseConnection connection = new DataBaseConnection();
+                try {
+                    OrderQuery orderQuery = new OrderQuery(connection.connect());
+                    orderQuery.deleteOrder(orderEntity.getOrderId());
+                    UI.getCurrent().getNavigator().addView(MainView.NAME,new MainView());
+                    UI.getCurrent().getNavigator().navigateTo(MainView.NAME);
+                } catch (ClassNotFoundException e) {
+                    addComponent(new Label("Ошибка удаления заказа!!!"));
+                } catch (SQLException e) {
+                    addComponent(new Label("Ошибка удаления заказа!!!"));
                 }
             }
         });

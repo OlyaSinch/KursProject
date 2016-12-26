@@ -134,5 +134,20 @@ public class OrderQuery {
         statement = conn.createStatement();
         String updateOrderSQL = "UPDATE order_table SET fk_developer_id = " + fkDeveloperId + " WHERE order_id = " + orderId + "";
         statement.execute(updateOrderSQL);
+        updateOrderSQL = "UPDATE order_table SET fk_status_id = 2 WHERE order_id = " + orderId + "";
+        statement.execute(updateOrderSQL);
+    }
+
+    public void updateStatusToFinished(int orderId) throws SQLException {
+        statement = conn.createStatement();
+        String updateOrderSQL = "UPDATE order_table SET fk_status_id = 3 WHERE order_id = " + orderId + "";
+        statement.execute(updateOrderSQL);
+    }
+
+    public Connection deleteOrder(int orderId) throws SQLException {
+        statement = conn.createStatement();
+        String delOrderSQL = "DELETE FROM order_table WHERE order_id = " + orderId;
+        statement.execute(delOrderSQL);
+        return conn;
     }
 }

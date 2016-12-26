@@ -16,7 +16,7 @@ public class ApplicationProperties extends Properties {
     private static final Logger logger = Logger.getLogger("ApplicationProperties");
 
     public ApplicationProperties() {
-        String settingsPath = VaadinService.getCurrent().getBaseDirectory().getAbsolutePath()  + "\\WEB-INF\\classes\\application.properties";
+        String settingsPath = VaadinService.getCurrent().getBaseDirectory().getAbsolutePath()  + "\\res\\application.properties";
         logger.warning(settingsPath);
         try {
             load(new FileInputStream(new File(settingsPath)));

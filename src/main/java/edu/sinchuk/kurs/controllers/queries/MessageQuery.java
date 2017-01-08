@@ -40,18 +40,19 @@ public class MessageQuery {
             message = new MessageEntity();
             message.setMessageId(rs.getInt(1));
             message.setMessageText(rs.getString(2));
-            message.setFkSenderId(rs.getInt(3));
-            message.setFkReceiverId(rs.getInt(4));
+            message.setFkOrderId(rs.getInt(3));
+            message.setFkSenderId(rs.getInt(4));
+            message.setFkReceiverId(rs.getInt(5));
             messages.add(message);
         }
 
         return messages;
     }
 
-    public List<MessageEntity> selectBySender(int fkSenderId) throws SQLException {
+    public List<MessageEntity> selectBySender(int fkOrderId, int fkSenderId) throws SQLException {
         List<MessageEntity> messages = new ArrayList<>();
         String selectOrderSQL = "SELECT * "
-                + "FROM message_table WHERE fk_sender_id = " + fkSenderId;
+                + "FROM message_table WHERE fk_order_id = " + fkOrderId + " AND fk_sender_id = " + fkSenderId;
         PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
         ResultSet rs = prst.executeQuery();
 
@@ -60,18 +61,19 @@ public class MessageQuery {
             message = new MessageEntity();
             message.setMessageId(rs.getInt(1));
             message.setMessageText(rs.getString(2));
-            message.setFkSenderId(rs.getInt(3));
-            message.setFkReceiverId(rs.getInt(4));
+            message.setFkOrderId(rs.getInt(3));
+            message.setFkSenderId(rs.getInt(4));
+            message.setFkReceiverId(rs.getInt(5));
             messages.add(message);
         }
 
         return messages;
     }
 
-    public List<MessageEntity> selectByReciever(int fkReceiverId) throws SQLException {
+    public List<MessageEntity> selectByReciever(int fkOrderId, int fkReceiverId) throws SQLException {
         List<MessageEntity> messages = new ArrayList<>();
         String selectOrderSQL = "SELECT * "
-                + "FROM message_table WHERE fk_reciever_id = " + fkReceiverId;
+                + "FROM message_table WHERE fk_order_id = " + fkOrderId + " AND fk_reciever_id = " + fkReceiverId;
         PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
         ResultSet rs = prst.executeQuery();
 
@@ -80,18 +82,19 @@ public class MessageQuery {
             message = new MessageEntity();
             message.setMessageId(rs.getInt(1));
             message.setMessageText(rs.getString(2));
-            message.setFkSenderId(rs.getInt(3));
-            message.setFkReceiverId(rs.getInt(4));
+            message.setFkOrderId(rs.getInt(3));
+            message.setFkSenderId(rs.getInt(4));
+            message.setFkReceiverId(rs.getInt(5));
             messages.add(message);
         }
 
         return messages;
     }
 
-    public List<MessageEntity> selectBySenderAndReciever(int fkSenderId, int fkReceiverId) throws SQLException {
+    public List<MessageEntity> selectBySenderAndReciever(int fkOrderId, int fkSenderId, int fkReceiverId) throws SQLException {
         List<MessageEntity> messages = new ArrayList<>();
         String selectOrderSQL = "SELECT * "
-                + "FROM message_table WHERE fk_sender_id = " + fkSenderId + " AND fk_reciever_id = " + fkReceiverId;
+                + "FROM message_table WHERE fk_order_id = " + fkOrderId + " AND fk_sender_id = " + fkSenderId + " AND fk_reciever_id = " + fkReceiverId;
         PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
         ResultSet rs = prst.executeQuery();
 
@@ -100,8 +103,9 @@ public class MessageQuery {
             message = new MessageEntity();
             message.setMessageId(rs.getInt(1));
             message.setMessageText(rs.getString(2));
-            message.setFkSenderId(rs.getInt(3));
-            message.setFkReceiverId(rs.getInt(4));
+            message.setFkOrderId(rs.getInt(3));
+            message.setFkSenderId(rs.getInt(4));
+            message.setFkReceiverId(rs.getInt(5));
             messages.add(message);
         }
 

@@ -7,14 +7,16 @@ public class MessageEntity {
 
     private int messageId;
     private String messageText;
+    private int fkOrderId;
     private int fkSenderId;
     private int fkReceiverId;
 
     public MessageEntity() {}
 
-    public MessageEntity(int messageId, String messageText, int fkSenderId, int fkReceiverId) {
+    public MessageEntity(int messageId, String messageText, int fkOrderId, int fkSenderId, int fkReceiverId) {
         this.messageId = messageId;
         this.messageText = messageText;
+        this.fkOrderId = fkOrderId;
         this.fkSenderId = fkSenderId;
         this.fkReceiverId = fkReceiverId;
     }
@@ -33,6 +35,14 @@ public class MessageEntity {
 
     public void setMessageText(String messageText) {
         this.messageText = messageText;
+    }
+
+    public int getFkOrderId() {
+        return fkOrderId;
+    }
+
+    public void setFkOrderId(int fkOrderId) {
+        this.fkOrderId = fkOrderId;
     }
 
     public int getFkSenderId() {
@@ -59,6 +69,7 @@ public class MessageEntity {
         MessageEntity that = (MessageEntity) o;
 
         if (messageId != that.messageId) return false;
+        if (fkOrderId != that.fkOrderId) return false;
         if (fkSenderId != that.fkSenderId) return false;
         if (fkReceiverId != that.fkReceiverId) return false;
         return messageText.equals(that.messageText);
@@ -68,6 +79,7 @@ public class MessageEntity {
     public int hashCode() {
         int result = messageId;
         result = 31 * result + messageText.hashCode();
+        result = 31 * result + fkOrderId;
         result = 31 * result + fkSenderId;
         result = 31 * result + fkReceiverId;
         return result;

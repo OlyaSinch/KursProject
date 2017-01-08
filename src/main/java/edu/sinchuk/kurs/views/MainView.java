@@ -48,6 +48,27 @@ public class MainView extends VerticalLayout implements View {
 
         UserEntity userEntity = (UserEntity) VaadinSession.getCurrent().getAttribute("user");
 
+        Button titles = new Button("titles");
+        titles.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                DataBaseConnection connection = new DataBaseConnection();
+                try {
+                    OrderQuery orderQuery = new OrderQuery(connection.connect());
+                    List<String> ordersTitles = orderQuery.selectAllTitles();
+                    ordersTitles.forEach(orderTitles -> {
+                        System.out.println(orderTitles);
+                    });
+                } catch (ClassNotFoundException e) {
+                    addComponent(new Label("Ошибка соединения с базой!!!"));
+                } catch (SQLException e) {
+                    addComponent(new Label("Ошибка запроса к базе!!!"));
+                }
+            }
+        });
+
+        addComponent(titles);
+
         DataBaseConnection connection = new DataBaseConnection();
         try {
             OrderQuery orderQuery = new OrderQuery(connection.connect());

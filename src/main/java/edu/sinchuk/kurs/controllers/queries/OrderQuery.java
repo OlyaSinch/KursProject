@@ -150,4 +150,18 @@ public class OrderQuery {
         statement.execute(delOrderSQL);
         return conn;
     }
+
+    public List<String> selectAllTitles() throws SQLException {
+        List<String> orders = new ArrayList<>();
+        String selectOrderSQL = "SELECT order_title "
+                + "FROM order_table";
+        PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
+        ResultSet rs = prst.executeQuery();
+
+        while (rs.next()) {
+            orders.add(rs.getString(1));
+        }
+
+        return orders;
+    }
 }

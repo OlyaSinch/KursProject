@@ -6,6 +6,14 @@
   <meta name="vaadin-version" content="7.7.0">
  </head> 
  <body> 
-  <vaadin-vertical-layout size-full></vaadin-vertical-layout>  
+  <vaadin-vertical-layout size-full> 
+   <vaadin-vertical-layout _id="messagesLayout"></vaadin-vertical-layout> 
+   <vaadin-horizontal-layout spacing margin :middle :center> 
+    <vaadin-text-area _id="messageText"></vaadin-text-area> 
+    <vaadin-button plain-text _id="sendBtn">
+      Send 
+    </vaadin-button> 
+   </vaadin-horizontal-layout> 
+  </vaadin-vertical-layout>  
  </body>
 </html>

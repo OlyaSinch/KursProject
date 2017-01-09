@@ -6,11 +6,14 @@ import edu.sinchuk.kurs.models.entities.OrderEntity;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by admin on 25.12.2016.
  */
 public class MessageQuery {
+
+    private static final Logger logger = Logger.getLogger("MessageQuery");
 
     static Connection conn = null;
     static Statement statement = null;
@@ -19,11 +22,12 @@ public class MessageQuery {
         this.conn = connection;
     }
 
-    public void insertMessage(String text, int fkSenderId, int fkReceiverId) throws SQLException {
+    public void insertMessage(String text, int fhOrderId, int fkSenderId, int fkReceiverId) throws SQLException {
         statement = conn.createStatement();
         String insertMessageSQL = "INSERT INTO message_table"
-                + "(message_id, message_text, fk_sender_id, fk_reciever_id) " + "VALUES"
-                + "(message_sequence.NEXTVAL,'" + text + "'," + fkSenderId + "," + fkReceiverId + ")";
+                + "(message_id, message_text, fk_order_id, fk_sender_id, fk_receiver_id) " + "VALUES"
+                + "(message_sequence.NEXTVAL,'" + text + "'," + fhOrderId + "," + fkSenderId + "," + fkReceiverId + ")";
+        logger.info(insertMessageSQL);
         statement.executeUpdate(insertMessageSQL);
         conn.close();
     }
@@ -31,7 +35,7 @@ public class MessageQuery {
     public void insertMessage(MessageEntity messageEntity) throws SQLException {
         statement = conn.createStatement();
         String insertMessageSQL = "INSERT INTO message_table"
-                + "(message_id, message_text, fk_order_id, fk_sender_id, fk_reciever_id) " + "VALUES"
+                + "(message_id, message_text, fk_order_id, fk_sender_id, fk_receiver_id) " + "VALUES"
                 + "(message_sequence.NEXTVAL,'" + messageEntity.getMessageText() + "'," + messageEntity.getFkOrderId()
                 + "," + messageEntity.getFkSenderId() + "," + messageEntity.getFkReceiverId() + ")";
         statement.executeUpdate(insertMessageSQL);
@@ -105,7 +109,7 @@ public class MessageQuery {
     public List<MessageEntity> selectByReciever(int fkOrderId, int fkReceiverId) throws SQLException {
         List<MessageEntity> messages = new ArrayList<>();
         String selectOrderSQL = "SELECT * "
-                + "FROM message_table WHERE fk_order_id = " + fkOrderId + " AND fk_reciever_id = " + fkReceiverId;
+                + "FROM message_table WHERE fk_order_id = " + fkOrderId + " AND fk_receiver_id = " + fkReceiverId;
         PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
         ResultSet rs = prst.executeQuery();
 
@@ -126,7 +130,7 @@ public class MessageQuery {
     public List<MessageEntity> selectBySenderAndReciever(int fkOrderId, int fkSenderId, int fkReceiverId) throws SQLException {
         List<MessageEntity> messages = new ArrayList<>();
         String selectOrderSQL = "SELECT * "
-                + "FROM message_table WHERE fk_order_id = " + fkOrderId + " AND fk_sender_id = " + fkSenderId + " AND fk_reciever_id = " + fkReceiverId;
+                + "FROM message_table WHERE fk_order_id = " + fkOrderId + " AND fk_sender_id = " + fkSenderId + " AND fk_receiver_id = " + fkReceiverId;
         PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
         ResultSet rs = prst.executeQuery();
 

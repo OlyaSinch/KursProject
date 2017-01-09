@@ -38,8 +38,8 @@ public class MailView extends VerticalLayout implements View {
 
     private static final Logger logger = Logger.getLogger("MailView");
 
-    protected VerticalLayout messagesLayout;
     protected Button back;
+    protected VerticalLayout messagesLayout;
     protected TextArea messageText;
     protected Button sendBtn;
 
@@ -96,7 +96,8 @@ public class MailView extends VerticalLayout implements View {
                 DataBaseConnection connection = new DataBaseConnection();
                 try {
                     MessageQuery messageQuery = new MessageQuery(connection.connect());
-                    messageQuery.insertMessage(messageEntity);
+                    messageQuery.insertMessage(messageEntity.getMessageText(),messageEntity.getFkOrderId(),
+                            messageEntity.getFkSenderId(),messageEntity.getFkReceiverId());
 
                     messagesLayout.removeAllComponents();
 
@@ -106,7 +107,7 @@ public class MailView extends VerticalLayout implements View {
                     messages.forEach(messageEnt -> {
                         if (messageEnt.getFkSenderId() == orderEntity.getFkDeveloperId()) {
                             Label message = new Label(messageEnt.getMessageText());
-                            message.setCaption("Developr:");
+                            message.setCaption("Developer:");
                             messagesLayout.addComponent(message);
                         } else if (messageEnt.getFkSenderId() == orderEntity.getFkCreatorId()) {
                             Label message = new Label(messageEnt.getMessageText());
@@ -114,6 +115,8 @@ public class MailView extends VerticalLayout implements View {
                             messagesLayout.addComponent(message);
                         }
                     });
+
+                    messageText.setValue("");
                 } catch (ClassNotFoundException e) {
                     logger.warning("Ошибка отправки сообщения!!!");
                 } catch (SQLException e) {

@@ -52,6 +52,8 @@ public class RegisterView extends VerticalLayout implements View {
     public RegisterView() {
         Design.read(this);
 
+        userType.select("Customer");
+
         login.addValidator(new RegexpValidator("^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$","Login type error..."));
         pass.addValidator(new StringLengthValidator("Pass type error...",8,20,false));
         passVerf.addValidator(new StringLengthValidator("Pass type error...",8,20,false));

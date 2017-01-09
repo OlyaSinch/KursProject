@@ -39,6 +39,7 @@ public class OrderInfoView extends FormLayout implements View {
     protected Button delete;
     protected Button finished;
     protected Button back;
+    protected Button sendMessage;
 
     public OrderInfoView(OrderEntity orderEntity) {
         Design.read(this);
@@ -54,6 +55,10 @@ public class OrderInfoView extends FormLayout implements View {
         if ((this.orderEntity.getFkDeveloperId() == this.userEntity.getUserId()) &&
                 (this.orderEntity.getFkStatusId() == 2)) {
             finished.setEnabled(true);
+            sendMessage.setEnabled(true);
+        }
+        if ((this.orderEntity.getFkDeveloperId() >= 1) && (this.userEntity.getFkGroupId() == 1)) {
+            sendMessage.setEnabled(true);
         }
 
         this.title.setValue(orderEntity.getOrderTitle());
@@ -69,6 +74,7 @@ public class OrderInfoView extends FormLayout implements View {
                     orderQuery.update(orderEntity.getOrderId(),userEntity.getUserId());
                     addComponent(new Label("Заказ принят!!!"));
                     setOrder.setEnabled(false);
+                    sendMessage.setEnabled(true);
                 } catch (ClassNotFoundException e) {
                     addComponent(new Label("Ошибка принятия заказа!!!"));
                 } catch (SQLException e) {
@@ -108,6 +114,14 @@ public class OrderInfoView extends FormLayout implements View {
                 } catch (SQLException e) {
                     addComponent(new Label("Ошибка удаления заказа!!!"));
                 }
+            }
+        });
+
+        sendMessage.addClickListener(new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                UI.getCurrent().getNavigator().addView(MailView.NAME,new MailView(orderEntity));
+                UI.getCurrent().getNavigator().navigateTo(MailView.NAME);
             }
         });
 

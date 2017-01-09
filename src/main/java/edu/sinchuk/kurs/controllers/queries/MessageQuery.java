@@ -28,6 +28,16 @@ public class MessageQuery {
         conn.close();
     }
 
+    public void insertMessage(MessageEntity messageEntity) throws SQLException {
+        statement = conn.createStatement();
+        String insertMessageSQL = "INSERT INTO message_table"
+                + "(message_id, message_text, fk_order_id, fk_sender_id, fk_reciever_id) " + "VALUES"
+                + "(message_sequence.NEXTVAL,'" + messageEntity.getMessageText() + "'," + messageEntity.getFkOrderId()
+                + "," + messageEntity.getFkSenderId() + "," + messageEntity.getFkReceiverId() + ")";
+        statement.executeUpdate(insertMessageSQL);
+        conn.close();
+    }
+
     public List<MessageEntity> selectAll() throws SQLException {
         List<MessageEntity> messages = new ArrayList<>();
         String selectOrderSQL = "SELECT * "
@@ -49,7 +59,29 @@ public class MessageQuery {
         return messages;
     }
 
-    public List<MessageEntity> selectBySender(int fkOrderId, int fkSenderId) throws SQLException {
+    public List<MessageEntity> selectByOrder(int fkOrderId) throws SQLException {
+        List<MessageEntity> messages = new ArrayList<>();
+        String selectOrderSQL = "SELECT * "
+                + "FROM message_table WHERE fk_order_id = " + fkOrderId;
+        PreparedStatement prst = conn.prepareStatement(selectOrderSQL);
+        ResultSet rs = prst.executeQuery();
+
+        MessageEntity message;
+        while (rs.next()) {
+            message = new MessageEntity();
+            message.setMessageId(rs.getInt(1));
+            message.setMessageText(rs.getString(2));
+            message.setFkOrderId(rs.getInt(3));
+            message.setFkSenderId(rs.getInt(4));
+            message.setFkReceiverId(rs.getInt(5));
+            messages.add(message);
+        }
+
+        return messages;
+    }
+
+    public List<MessageEntity> selectBySender(int fkOrderId,
+                                              int fkSenderId) throws SQLException {
         List<MessageEntity> messages = new ArrayList<>();
         String selectOrderSQL = "SELECT * "
                 + "FROM message_table WHERE fk_order_id = " + fkOrderId + " AND fk_sender_id = " + fkSenderId;
